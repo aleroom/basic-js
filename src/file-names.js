@@ -16,27 +16,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  const fileMap = {};  // Object to track occurrences of base file names
-  const result = [];    // Array to store the final filenames
+  const fileMap = {};
+  const result = [];
 
   for (const name of names) {
     if (!fileMap[name]) {
-      // If the name is not used yet, add it directly
-      fileMap[name] = 1;  // Mark the base name as used
+      fileMap[name] = 1;
       result.push(name);
     } else {
-      // Handling duplicates
       let newName = name;
-      let suffix = 1; // Start with suffix (1)
-      
-      // Keep incrementing until we find an unused filename
+      let suffix = 1;
       while (fileMap[newName]) {
-        newName = `${name}(${suffix})`;  // Create new name with suffix
-        suffix++; // Increment the suffix for the next iteration
+        newName = `${name}(${suffix})`;
+        suffix++;
       }
-      
-      // Add the new name to the result
-      fileMap[newName] = 1; // Mark the new name as used
+      fileMap[newName] = 1;
       result.push(newName);
     }
   }
